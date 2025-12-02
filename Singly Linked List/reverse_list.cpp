@@ -33,12 +33,16 @@ void print_ll(Node* head){
     }
 }
 
-Node* reverse(Node* &head,Node* &tail,Node* &tmp){
+void reverse(Node* &head,Node* &tail,Node* tmp){
     if(tmp->next==NULL) {
         head = tmp;
-        return ;
+        return;
     }
-    tmp->next = reverse(head,tail,tmp->next);
+    reverse(head,tail,tmp->next);
+    tmp->next->next = tmp;
+    tmp->next = NULL;
+    tail= tmp;
+    return;
 }
 
 int main()
@@ -54,6 +58,7 @@ int main()
             break;
         insert_at_tail(head, tail, node);
     }
-
+    reverse(head,tail,head);
+    print_ll(head);
     return 0;
 }
